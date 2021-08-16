@@ -27,7 +27,7 @@ MSDN文档：[C# 运算符和表达式|MSDN](https://docs.microsoft.com/zh-cn/do
 与C/C++ 类似，与C/C++ 一样C#是大小写敏感的。  
 
 ## 标点符号
-如分号(;)，大括号({})，小括号()，起到分隔语句的作用。
+如分号( ; )，大括号({})，小括号()，起到分隔语句的作用。
 
 ## 文本(字面值)
 [词法结构|MSDN（从"文字"单元开始看，随便吐槽一下机翻）](https://docs.microsoft.com/zh-cn/dotnet/csharp/language-reference/language-specification/lexical-structure#tokens)

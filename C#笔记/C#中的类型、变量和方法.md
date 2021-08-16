@@ -46,7 +46,7 @@ Visual Studio中编译程序的按钮名字为build而非compile，这是因为�
     - 接口（Interfaces）
     - 委托（Delegates）
 - C#类的派生谱系
-```
+```mermaid
 graph LR
 Object-->引用类型(Reference Type)
 Object-->值类型(Value Type)
