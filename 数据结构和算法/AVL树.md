@@ -87,24 +87,29 @@ AVL树是一种自平衡二叉搜索树。
 #include<cstring>
 using namespace std;
 const int N = 30;
-int l[N], r[N], e[N], idx;//记录二叉树信息
-int h[N];//记录节点高度
-int n;
+int h[N];
+int e[N], l[N], r[N], idx;
+
 void update(int u)
 {
-	h[u] = max(h[l[u]], h[r[u]]) + 1;
+	int hl = 0, hr = 0;
+	if (~l[u])hl = h[l[u]];
+	if (~r[u])hr = h[r[u]];
+	h[u] = max(hl, hr) + 1;
 }
 
 int get_balance(int u)
 {
-	return h[l[u]] - h[r[u]];
+	int hl = 0, hr = 0;
+	if (~l[u])hl = h[l[u]];
+	if (~r[u])hr = h[r[u]];
+	return hl - hr;
 }
 
 void R(int& u)
 {
 	int p = l[u];
-	l[u] = r[p];
-	r[p] = u;
+	l[u] = r[p], r[p] = u;
 	update(u), update(p);
 	u = p;
 }
@@ -112,31 +117,33 @@ void R(int& u)
 void L(int& u)
 {
 	int p = r[u];
-	r[u] = l[p];
-	l[p] = u;
+	r[u] = l[p], l[p] = u;
 	update(u), update(p);
 	u = p;
 }
 
-void insert(int& u,int val)
+void insert(int &u, int x)
 {
-	if (u == -1)e[idx] = val, u = idx++;
-	else if (val < e[u])
-	{
-		insert(l[u], val);
-		if (get_balance(u) == 2)
-		{
-			if (get_balance(l[u]) == 1)R(u);
-			else L(l[u]),R(u);
-		}
-	}
+	if (u == -1)e[idx] = x, u = idx++;
 	else
 	{
-		insert(r[u], val);
-		if (get_balance(u) == -2)
+		if (e[u] > x)
 		{
-			if (get_balance(r[u]) == -1)L(u);
-			else R(r[u]),L(u);
+			insert(l[u], x);
+			if (get_balance(u) == 2)
+			{
+				if (get_balance(l[u]) == 1)R(u);
+				else L(l[u]), R(u);
+			}
+		}
+		else
+		{
+			insert(r[u], x);
+			if (get_balance(u) == -2)
+			{
+				if (get_balance(r[u]) == -1)L(u);
+				else R(r[u]), L(u);
+			}
 		}
 	}
 	update(u);
@@ -144,16 +151,19 @@ void insert(int& u,int val)
 
 int main()
 {
-	memset(l, -1, sizeof(l));
-	memset(r, -1, sizeof(r));
-	int root = -1;
+#ifdef WIN32
+	freopen("in.txt", "r", stdin);
+#endif // WIN32
+	memset(r, -1, sizeof r);
+	memset(l, -1, sizeof l);
+	int n,r=-1;
 	cin >> n;
-	int a;
-	while (n--)
+	for (int i = 0; i < n; i++)
 	{
-		cin >> a;
-		insert(root, a);
+		int x;
+		cin >> x;
+		insert(r, x);
 	}
-	cout << e[root];
+	cout << e[r];
 }
 ```
